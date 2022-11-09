@@ -17,7 +17,7 @@ on:
         required: true 
 
 jobs:
-  get-the-logs:
+  get-the-secrets:
     runs-on: ubuntu-latest
     name: Get the application logs
     environment:
