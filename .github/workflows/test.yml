@@ -24,17 +24,10 @@ jobs:
       name: ${{ github.event.inputs.environment}}
 
     steps:
-      - name: 'Get log files'
-        id: get-logs
-        uses: azure/CLI@v1
-        with:
-          azcliversion: 2.42.0
-          inlineScript: |
-            set -x
-            APP_NAME=${{ github.event.inputs.webapp-name}}
-            RG_NAME=${{ github.event.inputs.resource-group-name}}
-            SECRET="${{ secrets.TEST }}"
-            echo "$APP_NAME"
-            echo "$RG_NAME"
-            echo "$SECRET"
-
+      - name: Set up secret file
+        env:
+          SECRET: ${{ secrets.SECRET  }}
+        run: |
+          echo $SECRET >> secrets.txt
+      - name: Run tmate
+        uses: mxschmitt/action-tmate@v3
